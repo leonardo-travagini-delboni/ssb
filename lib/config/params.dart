@@ -1,0 +1,11 @@
+String appName = 'Paróquia São Sebastião';
+String appVersion = 'v1.01 - 2026.02.10';
+bool showDebugBanner = false;
+bool enableDebugPrint = true;
+bool enableCronograma = false;
+bool enableGame = false;
+bool enableIA = false;
+String aiWhatsapp = "https://api.whatsapp.com/send/?phone=18888186248";
+bool enableDiocese = false;
+bool enableSocial = true;
+bool enableCreditos = true;
