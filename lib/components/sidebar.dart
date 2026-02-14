@@ -136,6 +136,9 @@ Drawer sidebar(BuildContext context) {
             onTap: () async {
               if (await canLaunchUrl(Uri.parse(aiWhatsapp))) {
                 dp('Sidebar: Launching AI WhatsApp');
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
                 await launchUrl(
                   Uri.parse(aiWhatsapp),
                   mode: LaunchMode.externalApplication,

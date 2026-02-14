@@ -39,6 +39,14 @@ Diocese de Catanduva
 
 Facilitar o acesso à fé e aos sacramentos para toda a comunidade paroquial. Espalhar a palavra de Deus e fortalecer os laços comunitários através da tecnologia.
 
----
+## 📄 Licença
 
-*Desenvolvido com amor e gratuidade por Leonardo T. Delboni e Delboni TI (Tecnologia da Informação)* ❤️
+Domínio público. Todos podem usar, modificar e distribuir este projeto livremente.
+
+## 👤 Autor
+
+**Leonardo Delboni**
+- Email: leonardodelboni@gmail.com
+- Telefone: +55 (11) 99442-1880
+
+--- *Copyright © 2025-2026 Desenvolvido com amor e gratuidade por Leonardo T. Delboni e Delboni TI (Tecnologia da Informação)* ❤️

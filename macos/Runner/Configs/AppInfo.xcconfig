@@ -8,7 +8,7 @@
 PRODUCT_NAME = Paróquia São Sebastião NH
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = br.com.saosebastiaoparoquia.app.ssb
+PRODUCT_BUNDLE_IDENTIFIER = br.com.saosebastiaoparoquia.ssb
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2026 br.com.saosebastiaoparoquia.app. All rights reserved.

@@ -1,5 +1,5 @@
 name: ssb
-description: "A new Flutter project."
+description: "Aplicativo multiplataforma para a comunidade paroquial de São Sebastião em Novo Horizonte - SP."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.2+2
 
 environment:
   sdk: ^3.10.8
@@ -108,6 +108,8 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/img/nsa.png"
+  adaptive_icon_foreground: "assets/img/nsa.png"
+  adaptive_icon_background: "#2196F3"
   min_sdk_android: 21
   remove_alpha_ios: true # exigido pela apple store
   web:

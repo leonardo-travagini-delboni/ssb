@@ -1,4 +1,4 @@
-package br.com.saosebastiaoparoquia.app.ssb
+package br.com.saosebastiaoparoquia.ssb
 
 import io.flutter.embedding.android.FlutterActivity
 
