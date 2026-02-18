@@ -1,10 +1,11 @@
 String appName = 'Paróquia São Sebastião';
-String appVersion = 'v1.02';
-int releaseVersion = 2;
-String releaseDate = '2026.02.14';
+String appVersion = 'v1.0.3';
+int releaseVersion = 3;
+String releaseDate = '2026.02.18';
 bool showDebugBanner = false;
 bool enableDebugPrint = true;
 bool enableCronograma = true;
+String cronogramaFile = 'cronograma_fev26.pdf';
 bool enableGame = false;
 bool enableIA = true;
 String aiWhatsapp = "https://api.whatsapp.com/send/?phone=18888186248";
