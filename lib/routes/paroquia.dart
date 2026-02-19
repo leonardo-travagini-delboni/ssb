@@ -94,9 +94,9 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                         }),
                         const SizedBox(height: 10.0),
                         Container(
-                          height: 1,
+                          height: 1.0,
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).appBarTheme.foregroundColor,
+                          color: Theme.of(context).appBarTheme.backgroundColor,
                         ),
                         const SizedBox(height: 10.0),
                       ],
@@ -180,12 +180,13 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).appBarTheme.foregroundColor,
+                          color: Theme.of(context).appBarTheme.backgroundColor,
                         ),
                         const SizedBox(height: 10.0),
                       ],
                     );
                   }),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +206,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                           paroquiaProvider.setCategoria('doacoes');
                         },
                         icon: Icon(Icons.arrow_forward),
-                        label: const Text('Doações PIX'),
+                        label: const Text('Doações'),
                       ),
                     ],
                   ),
@@ -378,7 +379,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                         Container(
                           height: 1,
                           width: MediaQuery.of(context).size.width,
-                          color: Theme.of(context).appBarTheme.foregroundColor,
+                          color: Theme.of(context).appBarTheme.backgroundColor,
                         ),
                         const SizedBox(height: 10.0),
                       ],
@@ -555,7 +556,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                                           context,
                                         ).appBarTheme.foregroundColor,
                                       ),
-                                      const SizedBox(height: 8.0),
+                                      const SizedBox(height: 14.0),
                                       Text(
                                         'Responsável:',
                                         textAlign: TextAlign.center,
@@ -631,7 +632,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                                           ),
                                         ),
                                       ],
-                                      const SizedBox(height: 10.0),
+                                      const SizedBox(height: 14.0),
                                       Container(
                                         height: 1,
                                         width: MediaQuery.of(
@@ -654,10 +655,19 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
                                       ...missas.entries.map((horario) {
                                         String dia = horario.key;
                                         String hora = horario.value;
-                                        return ListTile(
-                                          leading: Icon(Icons.schedule),
-                                          title: Text(dia),
-                                          subtitle: Text(hora),
+                                        return Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 350,
+                                              child: ListTile(
+                                                leading: Icon(Icons.schedule),
+                                                title: Text(dia),
+                                                subtitle: Text(hora),
+                                              ),
+                                            ),
+                                          ],
                                         );
                                       }),
                                       const SizedBox(height: 10.0),
@@ -1216,52 +1226,70 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
     else {
       headerTitle = 'Paróquia São Sebastião';
       body = Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         color: Theme.of(context).scaffoldBackgroundColor,
         padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+        child: Center(
           child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Escolha a opção desejada:',
-                    style: TextStyle(fontSize: 20.0),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10.0),
-                  ...ParoquiaProvider.categoriasMap.entries.map((entry) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 350.0,
-                          child: ListTile(
-                            leading: Icon(entry.value['icon']),
-                            title: Text(entry.value['title']),
-                            subtitle: Text(entry.value['subtitle']),
-                            onTap: () {
-                              dp('ParoquiaScreen: ${entry.value} tapped');
-                              paroquiaProvider.setCategoria(entry.key);
-                            },
+            scrollDirection: Axis.vertical,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Escolha a opção desejada:',
+                      style: TextStyle(fontSize: 20.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    ...ParoquiaProvider.categoriasMap.entries.map((entry) {
+                      return Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 350.0,
+                                child: ListTile(
+                                  leading: Icon(entry.value['icon']),
+                                  title: Text(entry.value['title']),
+                                  subtitle: Text(entry.value['subtitle']),
+                                  onTap: () {
+                                    dp('ParoquiaScreen: ${entry.value} tapped');
+                                    paroquiaProvider.setCategoria(entry.key);
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    );
-                  }),
-                  const SizedBox(height: 20.0),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      dp('ParoquiaScreen: Voltar button tapped');
-                      appProvider.setRoute('/home');
-                    },
-                    icon: Icon(Icons.arrow_back),
-                    label: const Text('Voltar ao Início'),
-                  ),
-                ],
+                          const SizedBox(height: 5.0),
+                          Container(
+                            height: 1.0,
+                            width: MediaQuery.of(context).size.width,
+                            color: Theme.of(
+                              context,
+                            ).appBarTheme.backgroundColor,
+                          ),
+                          const SizedBox(height: 5.0),
+                        ],
+                      );
+                    }),
+                    const SizedBox(height: 20.0),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        dp('ParoquiaScreen: Voltar button tapped');
+                        appProvider.setRoute('/home');
+                      },
+                      icon: Icon(Icons.arrow_back),
+                      label: const Text('Voltar ao Início'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
