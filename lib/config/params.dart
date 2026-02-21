@@ -1,7 +1,7 @@
 String appName = 'Paróquia São Sebastião';
-String appVersion = 'v1.0.4';
-int releaseVersion = 4;
-String releaseDate = '2026.02.19';
+String appVersion = 'v1.1.0';
+int releaseVersion = 5;
+String releaseDate = '2026.02.21';
 bool showDebugBanner = false;
 bool enableDebugPrint = true;
 bool enableCronograma = true;

@@ -116,19 +116,24 @@ class _BibliaScreenState extends State<BibliaScreen> {
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(height: 20),
-                Column(
-                  children: livros
-                      .map(
-                        (l) => ListTile(
-                          title: Text(l),
-                          leading: Icon(Icons.book),
-                          onTap: () {
-                            dp('Bíblia: Livro $l tapped');
-                            bibliaProvider.setBook(l);
-                          },
-                        ),
-                      )
-                      .toList(),
+                SizedBox(
+                  width: 350,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: livros
+                        .map(
+                          (l) => ListTile(
+                            title: Text(l),
+                            leading: Icon(Icons.book),
+                            onTap: () {
+                              dp('Bíblia: Livro $l tapped');
+                              bibliaProvider.setBook(l);
+                            },
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -172,19 +177,24 @@ class _BibliaScreenState extends State<BibliaScreen> {
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(height: 20),
-                Column(
-                  children: bibliaProvider.capitulosDisponiveisString
-                      .map(
-                        (c) => ListTile(
-                          title: Text('Capítulo $c'),
-                          leading: Icon(Icons.book),
-                          onTap: () {
-                            dp('Bíblia: Capítulo $c tapped');
-                            bibliaProvider.setChapter(c);
-                          },
-                        ),
-                      )
-                      .toList(),
+                SizedBox(
+                  width: 350,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: bibliaProvider.capitulosDisponiveisString
+                        .map(
+                          (c) => ListTile(
+                            title: Text('Capítulo $c'),
+                            leading: Icon(Icons.book),
+                            onTap: () {
+                              dp('Bíblia: Capítulo $c tapped');
+                              bibliaProvider.setChapter(c);
+                            },
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),

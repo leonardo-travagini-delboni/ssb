@@ -266,8 +266,10 @@ class ParoquiaProvider with ChangeNotifier {
       "cidade": "Novo Horizonte",
       "estado": "SP",
       "cep": "14962-404",
-      "foto": "assets/img/igrejas/ssb1.png",
+      "foto": "assets/img/igrejas/ssb11.png",
       "carousel": [
+        "assets/img/igrejas/ssb11.png",
+        "assets/img/igrejas/ssb12.png",
         "assets/img/igrejas/ssb1.png",
         "assets/img/igrejas/ssb2.png",
         "assets/img/igrejas/ssb3.png",
