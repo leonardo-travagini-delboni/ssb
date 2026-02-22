@@ -1,4 +1,6 @@
+import 'package:download/download.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ssb/config/func.dart';
 import 'package:ssb/provider/app.dart';
@@ -78,13 +80,61 @@ class _BibliaScreenState extends State<BibliaScreen> {
               const SizedBox(height: 20),
               const Text('ou demais opções abaixo:'),
               const SizedBox(height: 20.0),
-              ElevatedButton.icon(
-                onPressed: () {
-                  dp('BibliaScreen: Voltar button tapped');
-                  appProvider.setRoute('/home');
-                },
-                icon: Icon(Icons.arrow_back),
-                label: const Text('Voltar'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      dp('BibliaScreen: Voltar button tapped');
+                      appProvider.setRoute('/home');
+                    },
+                    icon: Icon(Icons.arrow_back),
+                    label: const Text('Voltar'),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      dp('BibliaScreen: Baixar PDF button tapped');
+
+                      try {
+                        final ByteData bytes = await rootBundle.load(
+                          'assets/pdf/biblia.pdf',
+                        );
+                        final List<int> byteList = bytes.buffer.asUint8List();
+                        final stream = Stream.fromIterable(byteList);
+                        await download(stream, 'biblia.pdf');
+                        dp('PDF downloaded successfully');
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text(
+                                'PDF baixado com sucesso!',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        dp('Error downloading Biblia PDF: $e');
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                'Erro ao baixar PDF: $e',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    icon: Icon(Icons.download),
+                    label: const Text('Baixar PDF'),
+                  ),
+                ],
               ),
             ],
           ),

@@ -37,14 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 30.0),
               Image.asset(
-                'assets/img/nsa.png',
-                width: 280.0,
-                height: 280.0,
+                'assets/img/igrejas/ssb11.png',
+                width: 350.0,
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 30.0),
               Text(
-                'Aqui você pode acessar informações sobre a Paróquia, ler a Bíblia, e muito mais!',
+                'Informações sobre a Paróquia, ler a Bíblia, e muito mais!',
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Theme.of(context).textTheme.bodySmall?.color,

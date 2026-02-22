@@ -176,15 +176,6 @@ Drawer sidebar(BuildContext context) {
               Navigator.pop(context);
             },
           ),
-        ListTile(
-          leading: Icon(Icons.close),
-          title: Text('Fechar'),
-          subtitle: Text('Fechar o menu lateral'),
-          onTap: () async {
-            dp('Sidebar: Fechar tapped');
-            if (context.mounted) Navigator.pop(context);
-          },
-        ),
       ],
     ),
   );

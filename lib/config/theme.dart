@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
+  brightness: Brightness.light,
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.blue,
     foregroundColor: Colors.white,
@@ -12,12 +13,13 @@ ThemeData lightTheme = ThemeData.light().copyWith(
 );
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
-  appBarTheme: AppBarTheme(
-    backgroundColor: Colors.black,
+  brightness: Brightness.dark,
+  appBarTheme: const AppBarTheme(
+    backgroundColor: Color(0xFF1F1F1F),
     foregroundColor: Colors.white,
   ),
-  primaryColor: Colors.black,
+  primaryColor: Colors.blueGrey[900],
   canvasColor: Colors.grey[900],
-  scaffoldBackgroundColor: Colors.grey[800],
-  cardColor: Colors.grey[800],
+  scaffoldBackgroundColor: const Color(0xFF121212),
+  cardColor: const Color(0xFF1E1E1E),
 );

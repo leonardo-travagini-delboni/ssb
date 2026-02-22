@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ssb/config/func.dart';
-import 'package:ssb/config/theme.dart';
 import 'package:ssb/provider/app.dart';
 import 'package:ssb/components/footer.dart';
 import 'package:ssb/components/header.dart';
 import 'package:ssb/components/sidebar.dart';
-import 'package:ssb/provider/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CreditosScreen extends StatefulWidget {
@@ -22,7 +20,6 @@ class _CreditosScreenState extends State<CreditosScreen> {
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
     dp('CreditosScreen started');
     String title = "Créditos";
     Widget body = Container(
@@ -43,9 +40,7 @@ class _CreditosScreenState extends State<CreditosScreen> {
               const SizedBox(height: 20.0),
               Container(
                 padding: const EdgeInsets.all(20.0),
-                color: themeProvider.theme == lightTheme
-                    ? Theme.of(context).scaffoldBackgroundColor
-                    : Colors.white,
+                color: Colors.white,
                 child: Image.asset(
                   'assets/img/ssb.png',
                   width: 300.0,

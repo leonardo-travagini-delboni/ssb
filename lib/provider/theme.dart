@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ssb/config/theme.dart';
+import 'package:ssb/config/func.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeData _theme = lightTheme;
+  ThemeMode _themeMode = ThemeMode.system;
 
-  ThemeData get theme => _theme;
+  ThemeMode get themeMode => _themeMode;
 
   ThemeProvider() {
     _loadThemeMode();
@@ -13,16 +13,29 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> _loadThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final isDark = prefs.getBool('isDark') ?? false;
-    _theme = isDark ? darkTheme : lightTheme;
+    final themeString = prefs.getString('themeMode') ?? 'system';
+    _themeMode = _stringToThemeMode(themeString);
     notifyListeners();
   }
 
-  Future<void> switchTheme() async {
-    final isDarkMode = _theme == darkTheme;
-    _theme = isDarkMode ? lightTheme : darkTheme;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isDark', !isDarkMode);
+  Future<void> setThemeMode(ThemeMode mode) async {
+    dp('Setting theme mode to: $mode');
+    _themeMode = mode;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    String newThemeMode = mode.toString().split('.').last.trim();
+    dp('Saving theme mode to preferences: <<$newThemeMode>>');
+    await prefs.setString('themeMode', newThemeMode);
+  }
+
+  ThemeMode _stringToThemeMode(String themeString) {
+    switch (themeString) {
+      case 'light':
+        return ThemeMode.light;
+      case 'dark':
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.system;
+    }
   }
 }

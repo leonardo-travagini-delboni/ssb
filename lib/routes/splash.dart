@@ -188,12 +188,17 @@ class _SplashScreenState extends State<SplashScreen> {
                             return FutureBuilder(
                               future: Future.delayed(Duration(seconds: _timer))
                                   .then((_) {
-                                    dp(
-                                      'Splash screen done. Navigating to /home',
-                                    );
-                                    appProvider.setRoute('/home');
+                                    // Skip Introduction Screen
+                                    if (appProvider.skipIntro) {
+                                      dp('Splash done. Navigating to /home');
+                                      appProvider.setRoute('/home');
+                                    }
+                                    // Go to Introduction Screen
+                                    else {
+                                      dp('Splash done. Navigating to /intro');
+                                      appProvider.setRoute('/intro');
+                                    }
                                   }),
-
                               builder: (context, snapshot) {
                                 return Scaffold(
                                   key: _scaffoldKey,

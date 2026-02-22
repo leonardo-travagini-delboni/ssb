@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:provider/provider.dart';
 import 'package:ssb/config/params.dart';
+import 'package:ssb/config/theme.dart';
 import 'package:ssb/provider/app.dart';
 import 'package:ssb/provider/biblia.dart';
 import 'package:ssb/provider/paroquia.dart';
@@ -41,11 +42,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: showDebugBanner,
       title: appName,
-      theme: Provider.of<ThemeProvider>(context).theme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: themeProvider.themeMode,
       home: RouterScreen(),
     );
   }

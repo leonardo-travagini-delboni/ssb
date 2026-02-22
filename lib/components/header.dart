@@ -22,12 +22,63 @@ AppBar header(BuildContext context, {String title = ''}) {
     ),
     centerTitle: true,
     actions: [
-      IconButton(
-        icon: const Icon(Icons.color_lens),
-        onPressed: () async {
-          dp('Header: Theme switch button tapped');
-          await themeProvider.switchTheme();
+      PopupMenuButton<ThemeMode>(
+        onSelected: (ThemeMode newMode) {
+          dp('Theme mode changed to: $newMode');
+          themeProvider.setThemeMode(newMode);
         },
+        color: Theme.of(context).appBarTheme.backgroundColor,
+        itemBuilder: (BuildContext context) => [
+          PopupMenuItem(
+            value: ThemeMode.system,
+            child: Row(
+              children: [
+                Icon(Icons.brightness_auto),
+                SizedBox(width: 8),
+                Text(
+                  'Sistema',
+                  style: TextStyle(
+                    color: Theme.of(context).appBarTheme.foregroundColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: ThemeMode.light,
+            child: Row(
+              children: [
+                Icon(Icons.light_mode),
+                SizedBox(width: 8),
+                Text(
+                  'Claro',
+                  style: TextStyle(
+                    color: Theme.of(context).appBarTheme.foregroundColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: ThemeMode.dark,
+            child: Row(
+              children: [
+                Icon(Icons.dark_mode),
+                SizedBox(width: 8),
+                Text(
+                  'Escuro',
+                  style: TextStyle(
+                    color: Theme.of(context).appBarTheme.foregroundColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+        icon: Icon(Icons.brightness_4),
       ),
     ],
   );

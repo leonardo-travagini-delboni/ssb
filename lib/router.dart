@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ssb/config/func.dart';
 import 'package:ssb/provider/app.dart';
 import 'package:ssb/routes/cronograma.dart';
 import 'package:ssb/routes/diocese.dart';
+import 'package:ssb/routes/intro.dart';
 import 'package:ssb/routes/splash.dart';
 import 'package:ssb/routes/home.dart';
 import 'package:ssb/routes/biblia.dart';
@@ -24,29 +26,48 @@ class _RouterScreenState extends State<RouterScreen> {
     AppProvider appProvider = Provider.of<AppProvider>(context);
     String route = appProvider.route;
     bool isLoading = appProvider.isLoading;
+    bool skipIntro = appProvider.skipIntro;
     // LOADING
     if (isLoading) {
       return Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-    // BIBLIA
-    else if (route == '/biblia') {
-      return const BibliaScreen();
-    }
-    // PAROQUIA
-    else if (route == '/paroquia') {
-      return const ParoquiaScreen();
     }
     // SPLASH
     else if (route == '/splash') {
       return const SplashScreen();
     }
-    // GAME
-    else if (route == '/game') {
-      return const GameScreen();
+    // INTRO
+    else if (route == '/intro') {
+      if (skipIntro) {
+        dp('RouterScreen: skipIntro is true, navigating to /home');
+        appProvider.setRoute('/home');
+        return const HomeScreen();
+      } else {
+        return const IntroScreen();
+      }
     }
     // HOME
     else if (route == '/home') {
       return const HomeScreen();
+    }
+    // PAROQUIA
+    else if (route == '/paroquia') {
+      return const ParoquiaScreen();
+    }
+    // CRONOGRAMA
+    else if (route == '/cronograma') {
+      return const CronogramaScreen();
+    }
+    // BIBLIA
+    else if (route == '/biblia') {
+      return const BibliaScreen();
+    }
+    // GAME
+    else if (route == '/game') {
+      return const GameScreen();
+    }
+    // DIOCESE
+    else if (route == '/diocese') {
+      return const DioceseScreen();
     }
     // SOCIAL
     else if (route == '/social') {
@@ -55,14 +76,6 @@ class _RouterScreenState extends State<RouterScreen> {
     // CREDITOS
     else if (route == '/creditos') {
       return const CreditosScreen();
-    }
-    // CRONOGRAMA
-    else if (route == '/cronograma') {
-      return const CronogramaScreen();
-    }
-    // DIOCESE
-    else if (route == '/diocese') {
-      return const DioceseScreen();
     }
     // ELSE
     else {
