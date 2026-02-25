@@ -101,6 +101,9 @@ class _IntroScreenState extends State<IntroScreen> {
       ),
     );
 
-    return Scaffold(key: _scaffoldKey, body: body);
+    return Scaffold(
+      key: _scaffoldKey,
+      body: SafeArea(child: body),
+    );
   }
 }

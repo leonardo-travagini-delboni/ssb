@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ssb/config/func.dart';
 import 'package:ssb/provider/app.dart';
+import 'package:ssb/routes/caritas.dart';
 import 'package:ssb/routes/cronograma.dart';
 import 'package:ssb/routes/diocese.dart';
 import 'package:ssb/routes/intro.dart';
@@ -68,6 +69,10 @@ class _RouterScreenState extends State<RouterScreen> {
     // DIOCESE
     else if (route == '/diocese') {
       return const DioceseScreen();
+    }
+    // CARITAS
+    else if (route == '/caritas') {
+      return const CaritasScreen();
     }
     // SOCIAL
     else if (route == '/social') {

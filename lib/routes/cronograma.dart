@@ -1,10 +1,12 @@
-import 'dart:typed_data' show ByteData;
+import 'dart:io';
 
-import 'package:download/download.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:ssb/config/func.dart';
 import 'package:ssb/config/params.dart';
 import 'package:ssb/provider/app.dart';
@@ -21,14 +23,13 @@ class CronogramaScreen extends StatefulWidget {
 
 class _CronogramaScreenState extends State<CronogramaScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final String _assetsPath = 'assets/pdf';
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
     dp('CronogramaScreen started');
-    String title = "Cronograma Mensal";
     Widget body = Container(
       color: Theme.of(context).scaffoldBackgroundColor,
       padding: const EdgeInsets.all(10.0),
@@ -38,14 +39,20 @@ class _CronogramaScreenState extends State<CronogramaScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(width: 30.0),
+              const Text(
+                'Confira nosso Cronograma Mensal abaixo:',
+                style: TextStyle(fontSize: 14.0),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
                 width: screenWidth * 0.8,
                 height: screenHeight > 600
                     ? screenHeight * 0.6
                     : screenHeight * 0.4,
-                child: PdfViewer.asset('$_assetsPath/$cronogramaFile'),
+                child: PdfViewer.asset('$pdfsPath/$cronogramaFile'),
               ),
-              const SizedBox(height: 30.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,45 +69,87 @@ class _CronogramaScreenState extends State<CronogramaScreen> {
                   ElevatedButton.icon(
                     onPressed: () async {
                       try {
-                        // Carrega o PDF do assets
-                        final ByteData bytes = await rootBundle.load(
-                          '$_assetsPath/$cronogramaFile',
-                        );
-                        final List<int> byteList = bytes.buffer.asUint8List();
+                        final String fullPath = '$pdfsPath/$cronogramaFile';
+                        dp('Loading PDF from assets for sharing: $fullPath');
+                        final data = await rootBundle.load(fullPath);
+                        final bytes = data.buffer.asUint8List();
+                        // CASE 1 : WEB
+                        if (kIsWeb) {
+                          dp('Sharing PDF on web platform');
+                          await SharePlus.instance.share(
+                            ShareParams(
+                              text: 'Confira o Cronograma Mensal da Paróquia!',
+                              files: [
+                                XFile.fromData(
+                                  bytes,
+                                  name: cronogramaFile,
+                                  mimeType: 'application/pdf',
+                                ),
+                              ],
+                            ),
+                          );
+                          dp('Web share/download disparado');
+                        }
+                        // CASE 2 : MOBILE (ANDROID / iOS)
+                        else if (Platform.isAndroid || Platform.isIOS) {
+                          dp('Sharing PDF on mobile platform');
+                          final directory = await getTemporaryDirectory();
+                          final file = File(
+                            '${directory.path}/$cronogramaFile',
+                          );
 
-                        // Faz o download do arquivo
-                        final stream = Stream.fromIterable(byteList);
-                        await download(stream, cronogramaFile);
-
-                        dp('PDF downloaded successfully');
+                          await file.writeAsBytes(bytes, flush: true);
+                          final sharePlus = await SharePlus.instance.share(
+                            ShareParams(
+                              text:
+                                  'Confira o Cronograma Mensal da Paróquia São Sebastião!',
+                              files: [XFile(file.path)],
+                            ),
+                          );
+                          dp('Share result: $sharePlus');
+                        }
+                        // CASE 3: ELSE - DESKTOP (WINDOWS / MAC / LINUX)
+                        else {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.yellow,
+                                content: Text(
+                                  'Compartilhar PDF ainda não é suportado nesta plataforma.',
+                                ),
+                              ),
+                            );
+                          }
+                          return;
+                        }
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
+                            SnackBar(
                               backgroundColor: Colors.green,
                               content: Text(
-                                'PDF baixado com sucesso!',
+                                'PDF compartilhado com sucesso!',
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
                           );
                         }
-                      } catch (e) {
-                        dp('Error downloading PDF: $e');
+                        dp('Share sheet opened successfully');
+                      }
+                      // ERROR
+                      catch (e) {
+                        dp('Error sharing PDF: $e');
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               backgroundColor: Colors.red,
-                              content: Text(
-                                'Erro ao baixar PDF: $e',
-                                style: TextStyle(color: Colors.white),
-                              ),
+                              content: Text('Erro ao compartilhar PDF: $e'),
                             ),
                           );
                         }
                       }
                     },
-                    icon: Icon(Icons.download),
-                    label: const Text('Baixar PDF'),
+                    icon: const Icon(Icons.share),
+                    label: const Text('Compartilhar PDF'),
                   ),
                 ],
               ),
@@ -112,7 +161,7 @@ class _CronogramaScreenState extends State<CronogramaScreen> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: header(context, title: title),
+      appBar: header(context, title: cronogramaTitle),
       drawer: sidebar(context),
       body: body,
       bottomNavigationBar: footer(context),

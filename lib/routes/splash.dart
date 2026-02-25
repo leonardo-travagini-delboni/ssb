@@ -27,35 +27,37 @@ class _SplashScreenState extends State<SplashScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
             key: _scaffoldKey,
-            body: Container(
-              padding: const EdgeInsets.all(8.0),
-              color: backgroundColor,
-              width: double.infinity,
-              height: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.asset(
-                    'assets/img/ssb.png',
-                    width: 300.0,
-                    height: 300.0,
-                    fit: BoxFit.contain,
-                  ),
-                  Text(
-                    'Paróquia São Sebastião',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
+            body: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                color: backgroundColor,
+                width: double.infinity,
+                height: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.asset(
+                      'assets/img/ssb.png',
+                      width: 300.0,
+                      height: 300.0,
+                      fit: BoxFit.contain,
                     ),
-                  ),
-                  Text(
-                    'Novo Horizonte - SP',
-                    style: TextStyle(fontSize: 16.0, color: textColor),
-                  ),
-                ],
+                    Text(
+                      'Paróquia São Sebastião',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
+                      ),
+                    ),
+                    Text(
+                      'Novo Horizonte - SP',
+                      style: TextStyle(fontSize: 16.0, color: textColor),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -66,35 +68,37 @@ class _SplashScreenState extends State<SplashScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Scaffold(
                   key: _scaffoldKey,
-                  body: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: backgroundColor,
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Image.asset(
-                          'assets/img/diocese.png',
-                          fit: BoxFit.contain,
-                          width: maxWidth,
-                          height: maxHeight,
-                        ),
-                        Text(
-                          'Diocese de Catanduva',
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                            color: textColor,
+                  body: SafeArea(
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      color: backgroundColor,
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Image.asset(
+                            'assets/img/diocese.png',
+                            fit: BoxFit.contain,
+                            width: maxWidth,
+                            height: maxHeight,
                           ),
-                        ),
-                        Text(
-                          'Catanduva - SP',
-                          style: TextStyle(fontSize: 16.0, color: textColor),
-                        ),
-                      ],
+                          Text(
+                            'Diocese de Catanduva',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              color: textColor,
+                            ),
+                          ),
+                          Text(
+                            'Catanduva - SP',
+                            style: TextStyle(fontSize: 16.0, color: textColor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -105,38 +109,40 @@ class _SplashScreenState extends State<SplashScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Scaffold(
                         key: _scaffoldKey,
-                        body: Container(
-                          padding: const EdgeInsets.all(8.0),
-                          color: backgroundColor,
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Image.asset(
-                                'assets/img/nsa.png',
-                                fit: BoxFit.contain,
-                                width: maxWidth,
-                                height: maxHeight,
-                              ),
-                              Text(
-                                'Bíblia Sagrada',
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: textColor,
+                        body: SafeArea(
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            color: backgroundColor,
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Image.asset(
+                                  'assets/img/nsa.png',
+                                  fit: BoxFit.contain,
+                                  width: maxWidth,
+                                  height: maxHeight,
                                 ),
-                              ),
-                              Text(
-                                'Versão Ave-Maria',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: textColor,
+                                Text(
+                                  'Bíblia Sagrada',
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: textColor,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  'Versão Ave-Maria',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: textColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -148,39 +154,42 @@ class _SplashScreenState extends State<SplashScreen> {
                               ConnectionState.waiting) {
                             return Scaffold(
                               key: _scaffoldKey,
-                              body: Container(
-                                padding: const EdgeInsets.all(8.0),
-                                color: backgroundColor,
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Image.asset(
-                                      'assets/img/ai.png',
-                                      fit: BoxFit.contain,
-                                      width: maxWidth,
-                                      height: maxHeight,
-                                    ),
-                                    Text(
-                                      'IA Católica',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: textColor,
+                              body: SafeArea(
+                                child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  color: backgroundColor,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Image.asset(
+                                        'assets/img/ai.png',
+                                        fit: BoxFit.contain,
+                                        width: maxWidth,
+                                        height: maxHeight,
                                       ),
-                                    ),
-                                    Text(
-                                      'Direto pelo WhatsApp',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: textColor,
+                                      Text(
+                                        'IA Católica',
+                                        style: TextStyle(
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: textColor,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        'Direto pelo WhatsApp',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: textColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -202,39 +211,41 @@ class _SplashScreenState extends State<SplashScreen> {
                               builder: (context, snapshot) {
                                 return Scaffold(
                                   key: _scaffoldKey,
-                                  body: Container(
-                                    color: backgroundColor,
-                                    padding: const EdgeInsets.all(8.0),
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Um oferecimento de ...',
-                                          style: TextStyle(
-                                            fontSize: 24.0,
-                                            color: textColor,
+                                  body: SafeArea(
+                                    child: Container(
+                                      color: backgroundColor,
+                                      padding: const EdgeInsets.all(8.0),
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            'Um oferecimento de ...',
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              color: textColor,
+                                            ),
                                           ),
-                                        ),
-                                        Image.asset(
-                                          'assets/img/dti.png',
-                                          width: 300.0,
-                                          height: 300.0,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Text(
-                                          'Sites, Sistemas e Aplicativos',
-                                          style: TextStyle(
-                                            fontSize: 24.0,
-                                            color: textColor,
+                                          Image.asset(
+                                            'assets/img/dti.png',
+                                            width: 300.0,
+                                            height: 300.0,
+                                            fit: BoxFit.contain,
                                           ),
-                                        ),
-                                      ],
+                                          Text(
+                                            'Sites, Sistemas e Aplicativos',
+                                            style: TextStyle(
+                                              fontSize: 24.0,
+                                              color: textColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
