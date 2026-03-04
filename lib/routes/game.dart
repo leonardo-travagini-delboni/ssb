@@ -55,6 +55,38 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  // Método para processar resposta e mostrar feedback
+  void _handleAnswer(
+    BuildContext context,
+    GameProvider game,
+    String selectedOption,
+  ) {
+    if (game.currentQuestion == null) return;
+
+    String correctAnswer = game.currentQuestion!['resposta'];
+    bool isCorrect = selectedOption == correctAnswer;
+
+    // Chama o método do provider para registrar a resposta
+    game.checkAnswer(selectedOption);
+
+    // Mostra o SnackBar com feedback
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: isCorrect ? Colors.green : Colors.red,
+        duration: Duration(seconds: 2),
+        content: Text(
+          isCorrect
+              ? '✓ Resposta correta!'
+              : '✗ A certa era: $correctAnswer) ${game.quizCur[game.step - 1][correctAnswer]}',
+          style: TextStyle(
+            color: isCorrect ? Colors.white : Colors.yellow,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
   // Widget: Seleção de Nível
   Widget _buildLevelSelection(GameProvider game, AppProvider appProvider) {
     return SingleChildScrollView(
@@ -142,7 +174,7 @@ class _GameScreenState extends State<GameScreen> {
                   minimumSize: const Size(double.infinity, 55),
                   alignment: Alignment.centerLeft,
                 ),
-                onPressed: () => game.checkAnswer(opt),
+                onPressed: () => _handleAnswer(context, game, opt),
                 child: Text(
                   "$opt) ${questao[opt]}",
                   style: const TextStyle(fontSize: 16),

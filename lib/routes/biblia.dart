@@ -355,7 +355,7 @@ class _BibliaScreenState extends State<BibliaScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: title),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }

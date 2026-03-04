@@ -87,47 +87,21 @@ Novas funcionalidades estão sendo adicionadas constantemente, como jogos, integ
               ),
               const SizedBox(height: 20.0),
               Image.asset(
-                'assets/img/dti.png',
+                'assets/img/dev.png',
                 width: 300.0,
                 height: 300.0,
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 20.0),
               Text(
-                "DELBONI TI",
+                "Leonardo Delboni",
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               Text(
-                "Sites, aplicativos e sistemas",
+                "Desenvolvedor de Sites e Aplicativos",
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10.0),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).appBarTheme.backgroundColor,
-                ),
-                onPressed: () async {
-                  String url = "https://www.delboniti.com.br";
-                  if (await canLaunchUrl(Uri.parse(url))) {
-                    await launchUrl(Uri.parse(url));
-                  } else {
-                    dp('Could not launch $url');
-                  }
-                },
-                label: Text(
-                  'www.delboniti.com.br',
-                  style: TextStyle(
-                    color: Theme.of(context).appBarTheme.foregroundColor,
-                  ),
-                ),
-                icon: Icon(
-                  Icons.open_in_new,
-                  color: Theme.of(context).appBarTheme.foregroundColor,
-                ),
               ),
               const SizedBox(height: 10.0),
               ElevatedButton.icon(
@@ -166,7 +140,7 @@ Novas funcionalidades estão sendo adicionadas constantemente, como jogos, integ
       key: _scaffoldKey,
       appBar: header(context, title: title),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }

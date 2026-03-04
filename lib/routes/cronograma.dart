@@ -163,7 +163,7 @@ class _CronogramaScreenState extends State<CronogramaScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: cronogramaTitle),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }

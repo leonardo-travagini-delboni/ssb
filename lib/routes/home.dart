@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: appName),
       drawer: sidebar(context),
-      body: _bodyHome(context),
+      body: SafeArea(child: _bodyHome(context)),
       bottomNavigationBar: footer(context),
     );
   }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ssb/config/func.dart';
@@ -11,257 +12,121 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final Color backgroundColor = Colors.white;
-  final Color textColor = Colors.black;
-  final int _timer = 3;
-  double maxWidth = 300;
-  double maxHeight = 300;
+  int _currentIndex = 0;
+  Timer? _timer;
+
+  // Definição das telas em uma estrutura de dados simples
+  final List<Map<String, String>> _pages = [
+    {
+      'img': 'assets/img/ssb.png',
+      'title': 'Paróquia São Sebatião',
+      'subtitle': 'Novo Horizonte - SP',
+    },
+    {
+      'img': 'assets/img/diocese.png',
+      'title': 'Diocese de Catanduva',
+      'subtitle': 'Catanduva - SP',
+    },
+    {
+      'img': 'assets/img/nsa.png',
+      'title': 'Bíblia Sagrada',
+      'subtitle': 'Versão Ave-Maria',
+    },
+    {
+      'img': 'assets/img/ai.png',
+      'title': 'IA Católica',
+      'subtitle': 'Direto pelo WhatsApp',
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _startSequence();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startSequence() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentIndex < _pages.length - 1) {
+        setState(() => _currentIndex++);
+      } else {
+        timer.cancel();
+        _navigateToNextScreen();
+      }
+    });
+  }
+
+  void _navigateToNextScreen() {
+    final appProvider = Provider.of<AppProvider>(context, listen: false);
+    final route = appProvider.skipIntro ? '/home' : '/intro';
+
+    dp('Splash done. Navigating to $route');
+    appProvider.setRoute(route);
+  }
+
   @override
   Widget build(BuildContext context) {
-    AppProvider appProvider = Provider.of<AppProvider>(context);
-    dp('Splash screen started.');
-    return FutureBuilder(
-      future: Future.delayed(Duration(seconds: _timer)),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            key: _scaffoldKey,
-            body: SafeArea(
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                color: backgroundColor,
-                width: double.infinity,
-                height: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+    final currentPage = _pages[_currentIndex];
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 600),
+          child: Container(
+            key: ValueKey<int>(
+              _currentIndex,
+            ), // Essencial para a animação funcionar
+            padding: const EdgeInsets.all(16.0),
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Se for a última tela, inverte a ordem texto/imagem como no seu original
+                if (_currentIndex == _pages.length - 1)
+                  Text(
+                    currentPage['title']!,
+                    style: const TextStyle(fontSize: 24, color: Colors.black),
+                  ),
+                // Imagem centralizada
+                Image.asset(
+                  currentPage['img']!,
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.contain,
+                ),
+                // Texto abaixo da imagem, centralizado
+                Column(
                   children: [
-                    Image.asset(
-                      'assets/img/ssb.png',
-                      width: 300.0,
-                      height: 300.0,
-                      fit: BoxFit.contain,
-                    ),
-                    Text(
-                      'Paróquia São Sebastião',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: textColor,
+                    if (_currentIndex != _pages.length - 1)
+                      Text(
+                        currentPage['title']!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
+                    const SizedBox(height: 8),
                     Text(
-                      'Novo Horizonte - SP',
-                      style: TextStyle(fontSize: 16.0, color: textColor),
+                      currentPage['subtitle']!,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
-          );
-        } else {
-          return FutureBuilder(
-            future: Future.delayed(Duration(seconds: _timer)),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Scaffold(
-                  key: _scaffoldKey,
-                  body: SafeArea(
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      color: backgroundColor,
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Image.asset(
-                            'assets/img/diocese.png',
-                            fit: BoxFit.contain,
-                            width: maxWidth,
-                            height: maxHeight,
-                          ),
-                          Text(
-                            'Diocese de Catanduva',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                              color: textColor,
-                            ),
-                          ),
-                          Text(
-                            'Catanduva - SP',
-                            style: TextStyle(fontSize: 16.0, color: textColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                return FutureBuilder(
-                  future: Future.delayed(Duration(seconds: _timer)),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Scaffold(
-                        key: _scaffoldKey,
-                        body: SafeArea(
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            color: backgroundColor,
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/img/nsa.png',
-                                  fit: BoxFit.contain,
-                                  width: maxWidth,
-                                  height: maxHeight,
-                                ),
-                                Text(
-                                  'Bíblia Sagrada',
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: textColor,
-                                  ),
-                                ),
-                                Text(
-                                  'Versão Ave-Maria',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: textColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return FutureBuilder(
-                        future: Future.delayed(Duration(seconds: _timer)),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Scaffold(
-                              key: _scaffoldKey,
-                              body: SafeArea(
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  color: backgroundColor,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Image.asset(
-                                        'assets/img/ai.png',
-                                        fit: BoxFit.contain,
-                                        width: maxWidth,
-                                        height: maxHeight,
-                                      ),
-                                      Text(
-                                        'IA Católica',
-                                        style: TextStyle(
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: textColor,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Direto pelo WhatsApp',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: textColor,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else {
-                            return FutureBuilder(
-                              future: Future.delayed(Duration(seconds: _timer))
-                                  .then((_) {
-                                    // Skip Introduction Screen
-                                    if (appProvider.skipIntro) {
-                                      dp('Splash done. Navigating to /home');
-                                      appProvider.setRoute('/home');
-                                    }
-                                    // Go to Introduction Screen
-                                    else {
-                                      dp('Splash done. Navigating to /intro');
-                                      appProvider.setRoute('/intro');
-                                    }
-                                  }),
-                              builder: (context, snapshot) {
-                                return Scaffold(
-                                  key: _scaffoldKey,
-                                  body: SafeArea(
-                                    child: Container(
-                                      color: backgroundColor,
-                                      padding: const EdgeInsets.all(8.0),
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Um oferecimento de ...',
-                                            style: TextStyle(
-                                              fontSize: 24.0,
-                                              color: textColor,
-                                            ),
-                                          ),
-                                          Image.asset(
-                                            'assets/img/dti.png',
-                                            width: 300.0,
-                                            height: 300.0,
-                                            fit: BoxFit.contain,
-                                          ),
-                                          Text(
-                                            'Sites, Sistemas e Aplicativos',
-                                            style: TextStyle(
-                                              fontSize: 24.0,
-                                              color: textColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                      );
-                    }
-                  },
-                );
-              }
-            },
-          );
-        }
-      },
+          ),
+        ),
+      ),
     );
   }
 }

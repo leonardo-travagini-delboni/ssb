@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ssb/config/func.dart';
@@ -8,17 +9,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 Widget footer(BuildContext context, {String title = ''}) {
   String? pixChave = ParoquiaProvider.pixMap["pix_chave"];
-  int curYear = DateTime.now().year;
   double screenHeight = MediaQuery.of(context).size.height;
   double screenWidth = MediaQuery.of(context).size.width;
 
   if (title.isEmpty) {
-    title = '© 2024 - $curYear Paróquia São Sebastião. Novo Horizonte - SP';
+    title = 'Paróquia São Sebastião. Novo Horizonte - SP';
   }
 
   List<dynamic> footerAds = [
     // Footer 1 - PIX Paróquia São Sebastião (ação de copiar chave PIX)
-    if (pixChave != null && pixChave.isNotEmpty)
+    if (pixChave != null && pixChave.isNotEmpty && !kIsWeb)
       {
         'is_image': true,
         'content': 'assets/img/ads/footer1.png',
@@ -52,7 +52,7 @@ Widget footer(BuildContext context, {String title = ''}) {
         },
       },
     // Footer 2 - Fundação Cáritas Catanduva (link para WhatsApp)
-    if (enableCaritas)
+    if (enableCaritas && !kIsWeb)
       {
         'is_image': true,
         'content': 'assets/img/ads/footer2.png',
@@ -71,7 +71,7 @@ Widget footer(BuildContext context, {String title = ''}) {
         },
       },
     // Footer 3 - Anuncie você também (link para WhatsApp)
-    if (enableCreditos)
+    if (enableCreditos && !kIsWeb)
       {
         'is_image': true,
         'content': 'assets/img/ads/footer3.png',
@@ -108,15 +108,21 @@ Widget footer(BuildContext context, {String title = ''}) {
           enlargeCenterPage: false,
           scrollDirection: Axis.horizontal,
           viewportFraction: 1.0,
-          aspectRatio: 16 / 9,
+          height: screenHeight * 0.08,
         ),
         items: footerAds.map((ad) {
           return GestureDetector(
             onTap: ad['action'],
             child: ad['is_image']
-                ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Image.asset(ad['content'], fit: BoxFit.fill),
+                ? SizedBox(
+                    width: screenWidth,
+                    height: screenHeight * 0.08,
+                    child: Image.asset(
+                      ad['content'],
+                      fit: BoxFit.contain,
+                      width: screenWidth,
+                      height: screenHeight * 0.08,
+                    ),
                   )
                 : Center(
                     child: Padding(

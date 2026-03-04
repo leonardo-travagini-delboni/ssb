@@ -1302,7 +1302,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: headerTitle),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }

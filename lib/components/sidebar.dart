@@ -199,7 +199,7 @@ Drawer sidebar(BuildContext context) {
           // CREDITS
           if (enableCreditos)
             ListTile(
-              leading: const Icon(Icons.info),
+              leading: const Icon(Icons.star),
               title: const Text('Créditos'),
               subtitle: const Text('Maiores informações'),
               onTap: () {
@@ -208,6 +208,23 @@ Drawer sidebar(BuildContext context) {
                 if (appProvider.route != '/creditos') {
                   dp('Sidebar: Navigating to /creditos');
                   appProvider.setRoute('/creditos');
+                }
+                Navigator.pop(context);
+              },
+            ),
+          // INTRODUCTION ON SIDEBAR (AGAIN)
+          if (enableIntroductionOnSidebar)
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('Introdução'),
+              subtitle: const Text('Primeiros Passos ao App'),
+              onTap: () {
+                dp('Sidebar: Introdução tapped');
+                bibliaProvider.clearAll();
+                if (appProvider.route != '/intro') {
+                  dp('Sidebar: Navigating to /intro');
+                  appProvider.setSkipIntro(false); // ensure it appears again
+                  appProvider.setRoute('/intro');
                 }
                 Navigator.pop(context);
               },

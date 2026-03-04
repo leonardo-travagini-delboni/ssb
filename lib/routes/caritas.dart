@@ -55,7 +55,7 @@ class _CaritasScreenState extends State<CaritasScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: title),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }

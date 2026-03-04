@@ -1,11 +1,8 @@
 // Main App Release Settings
 String appName = 'Paróquia São Sebastião';
-String appVersion = 'v1.3.0';
-int releaseVersion = 7;
-String releaseDate = DateTime.now()
-    .subtract(Duration(hours: 3))
-    .toString()
-    .split(' ')[0];
+String appVersion = 'v1.4.0';
+int releaseVersion = 8;
+String releaseDate = '2026.03.04';
 
 // Debug Settings
 bool showDebugBanner = false;
@@ -14,8 +11,8 @@ bool enableDebugPrint = true;
 // Cronograma Settings
 String pdfsPath = 'assets/pdf';
 bool enableCronograma = true;
-String cronogramaFile = 'cronograma_fev26.pdf';
-String cronogramaTitle = 'Cronograma Mensal Fev/26';
+String cronogramaFile = 'cronograma_mar26.pdf';
+String cronogramaTitle = 'Cronograma Mensal Mar/26';
 
 // Paroquia Settings
 bool enableParoquia = true;
@@ -46,3 +43,6 @@ bool enableSocial = true;
 // Credits Settings
 bool enableCreditos = true;
 String devWhatsapp = "https://api.whatsapp.com/send/?phone=5511994421880";
+
+// Introduction on Sidebar
+bool enableIntroductionOnSidebar = true;

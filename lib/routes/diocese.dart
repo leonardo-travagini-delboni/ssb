@@ -55,7 +55,7 @@ class _DioceseScreenState extends State<DioceseScreen> {
       key: _scaffoldKey,
       appBar: header(context, title: title),
       drawer: sidebar(context),
-      body: body,
+      body: SafeArea(child: body),
       bottomNavigationBar: footer(context),
     );
   }
