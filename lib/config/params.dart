@@ -1,8 +1,8 @@
 // Main App Release Settings
 String appName = 'Paróquia São Sebastião';
-String appVersion = 'v1.4.0';
-int releaseVersion = 8;
-String releaseDate = '2026.03.04';
+String appVersion = 'v1.5.0';
+int releaseVersion = 9;
+String releaseDate = '2026.04.01';
 
 // Debug Settings
 bool showDebugBanner = false;
@@ -11,8 +11,8 @@ bool enableDebugPrint = true;
 // Cronograma Settings
 String pdfsPath = 'assets/pdf';
 bool enableCronograma = true;
-String cronogramaFile = 'cronograma_mar26.pdf';
-String cronogramaTitle = 'Cronograma Mensal Mar/26';
+String cronogramaFile = 'cronograma_abr26.pdf';
+String cronogramaTitle = 'Cronograma Mensal Abr/26';
 
 // Paroquia Settings
 bool enableParoquia = true;
