@@ -1026,7 +1026,7 @@ class _ParoquiaScreenState extends State<ParoquiaScreen> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.asset(
-                  'assets/img/igrejas/ssb1.png',
+                  'assets/img/igrejas/ssb11.png',
                   width: double.infinity,
                   height: 300.0,
                   fit: BoxFit.cover,

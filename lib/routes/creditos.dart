@@ -119,7 +119,7 @@ Novas funcionalidades estão sendo adicionadas constantemente, como jogos, integ
                   '(11) 99442-1880',
                   style: TextStyle(color: Colors.white),
                 ),
-                icon: Icon(FontAwesomeIcons.whatsapp, color: Colors.white),
+                icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
               ),
               const SizedBox(height: 20.0),
               ElevatedButton.icon(

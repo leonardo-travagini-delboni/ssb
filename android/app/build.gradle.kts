@@ -52,7 +52,7 @@ android {
         // minSdk = flutter.minSdkVersion // (ORIGINAL DESCOMENTADO)
         minSdk = 24 // INSERIDO EM 2026-02-10
         // targetSdk = flutter.targetSdkVersion // (ORIGINAL DESCOMENTADO)
-        targetSdk = 35 // INSERIDO EM 2026-02-10
+        targetSdk = 36 // ATUALIZADO EM 2026-08-09 - Android 16 (API 36) exigido pelo Google Play
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }

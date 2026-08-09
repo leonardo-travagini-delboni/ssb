@@ -47,3 +47,4 @@ app.*.map.json
 # Manually added files
 /android/key.properties
 /for_publishing_play_store/
+/assets/deprecated/
